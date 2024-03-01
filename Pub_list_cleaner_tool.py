@@ -20,13 +20,13 @@ def clean_publication_name(text):
 
 # Title and description for your app
 st.title("Publication Cleaner Tool")
-st.write("This tool cleans publication names from Excel files.")
+st.write("This tool cleans publication names within Excel files.")
 
-# File upload for 'pub_list.xlsx'
-uploaded_file1 = st.file_uploader("Upload 'pub_list.xlsx':", type="xlsx")
+# File upload for 'CS Chorus List.xlsx'
+uploaded_file1 = st.file_uploader("Upload 'CS Chorus List.xlsx':", type="xlsx")
 
-# File upload for 'pub_list_client.xlsx'
-uploaded_file2 = st.file_uploader("Upload 'pub_list_client.xlsx':", type="xlsx")
+# File upload for 'GCH List.xlsx'
+uploaded_file2 = st.file_uploader("Upload 'GCH List.xlsx':", type="xlsx")
 
 if uploaded_file1 is not None and uploaded_file2 is not None:
     # Read the data from uploaded files using pandas.read_excel
@@ -44,16 +44,16 @@ if uploaded_file1 is not None and uploaded_file2 is not None:
 
     # Download cleaned data as CSV files (alternative to Excel)
     st.download_button(
-        label="Download Cleaned 'pub_list.xlsx' (as CSV)",
+        label="Download Cleaned 'CS Chorus List.xlsx' (as CSV)",
         data=cleaned_data1.to_csv(index=False),
-        file_name="cleaned_pub_list.csv",
+        file_name="Cleaned CS Chorus List.csv",
         mime="text/csv"
     )
 
     st.download_button(
-        label="Download Cleaned 'pub_list_client.xlsx' (as CSV)",
+        label="Download Cleaned 'GCH List.xlsx' (as CSV)",
         data=cleaned_data2.to_csv(index=False),
-        file_name="cleaned_pub_list_client.csv",
+        file_name="Cleaned GCH List.csv",
         mime="text/csv"
     )
 

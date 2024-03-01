@@ -34,11 +34,11 @@ if uploaded_file1 is not None and uploaded_file2 is not None:
     data2 = pd.read_excel(uploaded_file2)
 
     # Clean the data
-    publications1 = data1['Publications'].tolist()
+    publications1 = data1['Publication'].tolist()
     cleaned_publications1 = [clean_publication_name(pub) for pub in publications1]
     cleaned_data1 = pd.DataFrame({'Cleaned Publication Name': cleaned_publications1})
 
-    publications2 = data2['Publications'].tolist()
+    publications2 = data2['Publication'].tolist()
     cleaned_publications2 = [clean_publication_name(pub) for pub in publications2]
     cleaned_data2 = pd.DataFrame({'Cleaned Publication Name': cleaned_publications2})
 

@@ -19,7 +19,9 @@ def clean_publication_name(text):
     text = re.sub(r"\..*$", "", text)
     text = re.sub(r"[^\w\s-]", "", text).lower()
     text = re.sub(r"\s", "", text)
-    return text
+    
+    # Return None if the cleaned text is empty
+    return text if text else None
 
 # Title and description for your app
 st.title("Publication Cleaner Tool")

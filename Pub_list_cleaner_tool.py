@@ -16,9 +16,19 @@ def clean_publication_name(text):
     # Remove the contents within parentheses
     text = re.sub(r"\(.*?\)", "", text)
     
+    # Check if the text is "Standard.co.uk" and return "standard" if true
+    if text.lower() == "standard.co.uk":
+        return "standard"
+    
     text = re.sub(r"\..*$", "", text)
     text = re.sub(r"[^\w\s-]", "", text).lower()
     text = re.sub(r"\s", "", text)
+    
+    # Remove 'and' except when it appears within the word 'standard'
+    text = re.sub(r"and(?!standard)", "", text)
+    
+    # Remove hyphens
+    text = re.sub(r"-", "", text)
     
     # Return None if the cleaned text is empty
     return text if text else None
@@ -37,16 +47,16 @@ if uploaded_file1 is not None and uploaded_file2 is not None:
     # Read the data from uploaded files using pandas.read_excel
     data1 = pd.read_excel(uploaded_file1)
     data2 = pd.read_excel(uploaded_file2)
-
+    
     # Clean the data
     publications1 = data1['Publications'].tolist()
     cleaned_publications1 = [clean_publication_name(pub) for pub in publications1]
     cleaned_data1 = pd.DataFrame({'Cleaned Publication Name': cleaned_publications1})
-
+    
     publications2 = data2['Publication'].tolist()
     cleaned_publications2 = [clean_publication_name(pub) for pub in publications2]
     cleaned_data2 = pd.DataFrame({'Cleaned Publication Name': cleaned_publications2})
-
+    
     # Download cleaned data as CSV files (alternative to Excel)
     st.download_button(
         label="Download Cleaned 'CS Chorus List.xlsx' (as CSV)",
@@ -54,14 +64,13 @@ if uploaded_file1 is not None and uploaded_file2 is not None:
         file_name="Cleaned CS Chorus List.csv",
         mime="text/csv"
     )
-
+    
     st.download_button(
         label="Download Cleaned 'GCH List.xlsx' (as CSV)",
         data=cleaned_data2.to_csv(index=False),
         file_name="Cleaned GCH List.csv",
         mime="text/csv"
     )
-
 else:
     st.info("Please upload both files.")
 
